@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DeviceCategoryManagement.Models.Device>
+@{
+    Layout = null;
+    var devices = ViewBag.Device;
+    var searchs = ViewBag.Search;
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Search" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label for="name" class="control-label">Search</label>
+        <input id="name" name="name" placeholder="search..." class="form-control" />
+        <button class="btn btn-success" type="submit">Search</button>
+    </div>
+</form>
+<table class="table" border="1" cellpadding="10">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+               <a asp-action="Index" asp-route-sortOrder="@ViewBag.StatusSortParam">Status</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfEntry)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @item.Name
+            </td>
+            <td>
+                    @item.Code
+            </td>
+            <td>
+                    @item.Category
+            </td>
+            <td>
+                    @item.Status
+            </td>
+            <td>
+                    @item.DateOfEntry  
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
